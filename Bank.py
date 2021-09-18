@@ -1,0 +1,55 @@
+import sys
+
+
+class Bank:
+    def __init__(self, customer_name: str, account_type: str):
+        self.CUSTOMER_NAME = customer_name
+        self.ACCOUNT_TYPE = account_type
+        self.__IFSC__ = "000LIGN"
+        account_number = str().__add__(self.__IFSC__)
+        if account_type == 1:
+            account_number = account_number.__add__("SAV")
+        elif account_type == 2:
+            account_number = account_number.__add__("CUR")
+        else:
+            account_number = account_number.__add__("COR")
+        self.ACCOUNT_NUMBER = account_number
+
+    def create_account(self):
+        input_details = open(r"C:\Users\HP\Desktop\Python Program\bank_details.txt","a+")
+        input_details.write(str("Name: "+self.CUSTOMER_NAME+"\n"))
+        input_details.write(str("Account Number: "+self.ACCOUNT_NUMBER+"\n"))
+        input_details.write(str("Account TYPE: "+self.ACCOUNT_TYPE+"\n"))
+        input_details.flush()
+        print("DONE")
+           
+
+
+def accept_input() -> tuple:
+    customer_name = input("Enter your name: ")
+    print("Account Types Available:")
+    print("1)Savings\n2)Current\n3)Corporate")
+    account_type = int(input("Enter your choice: "))
+    if not 0 < account_type <= 3:
+        sys.stderr.write("INVALID INPUT!!!")
+        sys.stderr.flush()
+        if not input("Press any key to retry and enter to end: ") is None:
+            accept_input()
+    account_type = "Savings" if account_type == 1 else "Current" if account_type == 2 else "Corporate"
+    return customer_name, account_type  # Returning the values in the form of a tuple
+
+
+if __name__ == '__main__':
+    print("\t\t\tWELCOME", end=" ")
+    try:
+        file = open(r"C:\Users\HP\Desktop\Python Program\bank_details.txt")
+    except FileNotFoundError:  # If the program finds no existing file in the working directory and prompts the user.
+        with sys.stderr as print_error:
+            print_error.write("\nYou currently have no existing account.\n")
+        print("Do you want to create a bank account?")
+        user_choice = int(input("Enter 1 for yes and any number to end the program: "))
+        if user_choice == 1:
+            name, acc_type = accept_input()  # Unpacking the tuple
+            Bank(name,acc_type).create_account()
+        else:
+            print("Have a great day!!!")
