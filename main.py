@@ -18,6 +18,7 @@ class Bank:
 
 def accept_input() -> tuple:
     customer_name = input("Enter your name: ")
+    customer_address = input("Enter your")
     print("Account Types Available:")
     print("1)Savings\n2)Current\n3)Corporate")
     account_type = int(input("Enter your choice: "))
