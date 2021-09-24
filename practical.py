@@ -8,7 +8,7 @@ def question_1():
         print(word+"# ", end="") 
       print()
 
-#Read a text file and display the sumber of vowels/consonants/uppercase/lowercase characters in the file
+#Read a text file and display the number of vowels/consonants/uppercase/lowercase characters in the file
 def question_2():
   vowels = ["a","e","i","o","u"]
   count = {"vowels":0,"consonants":0,"uppercase":0,"lowercase":0}
@@ -26,8 +26,7 @@ def question_2():
         count["consonants"]+=1
   print("Instances found:")
   for key in count:
-    print(key,":",count[key])  
-    
+    print(key,":",count[key])
 #Remove all the lines that contain the character 's" in a file and write it to another file.
 def question_3():
     with open(r"/content/drive/MyDrive/Practical/Q3_Source.txt") as file_handle:
