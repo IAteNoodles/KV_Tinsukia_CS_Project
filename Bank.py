@@ -3,7 +3,7 @@ import csv
 import datetime
 import os
 import pickle
-import tinker
+
 
 
 class Bank:
