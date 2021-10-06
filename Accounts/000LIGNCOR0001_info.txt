@@ -1,0 +1,8 @@
+Account Number: 000LIGNCOR0001
+Name: Abhijit 
+Address: Pompi
+Date of Birth: 2004-04-08
+Phone: 8876391657
+Email: thisbahi#gmial.com
+Account TYPE: Corporate
+Current Balance: 5000

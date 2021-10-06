@@ -1,0 +1,8 @@
+Account Number: 000LIGNCOR0000
+Name: Abhijit Kumar Singh
+Address: Borhapjan New Market
+Date of Birth: 2003-08-04
+Phone: 9678781811
+Email: thisabhijithere@gmail.com
+Account TYPE: Savings
+Current Balance: 2000

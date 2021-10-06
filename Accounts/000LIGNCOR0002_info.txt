@@ -1,0 +1,8 @@
+Account Number: 000LIGNCOR0002
+Name: 5
+Address: 5
+Date of Birth: 5000-05-05
+Phone: 6516
+Email: 23
+Account TYPE: Current
+Current Balance: 156151
