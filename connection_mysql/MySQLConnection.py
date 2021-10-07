@@ -1,5 +1,4 @@
 import mysql.connector as mysql
-import epydoc
 
 
 class MySQLConnection:
@@ -12,15 +11,6 @@ class MySQLConnection:
         self.__CONNECTOR = mysql.connect(
             host=host, user=user, passwd=passwd, charset="utf8")
         self.__ADMIN = self.__CONNECTOR.cursor()
-        self.__DATATYPE_DICTIONARY = {
-        "TEXT": {"TINYTEXT":255, "TEXT":65535, "MEDIUMTEXT":167777215, "LONGTEXT":4294967295},
-        "BLOB": {"TINYBLOB":[255,1], "BLOB":[65535,2], "MEDIUMBLOB":[16777215,3], "LONGBLOB":[4294967295,4]},
-        "CHAR and VARCHAR": {"CHAR": 255, "VARCHAR": 65535},
-        "BINARY and VARBINARY": {"BINARY":0, "VARBINARY":0}
-
-
-
-
 
     def create_new_database(self, database_name: str) -> bool:
         """
