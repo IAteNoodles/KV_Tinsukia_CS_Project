@@ -51,7 +51,11 @@ class TkInterInterface:
                                                "Address: {1}\n"
                                                "Date of birth: {2}\n"
                                                "Phone number: {3}\n"
-                                               "Email: {4}".format(_name, address, dob, phone_number, email)).grid(column=0, row=1)
+                                               "Email: {4}".format(_name,
+                                                                   address,
+                                                                   dob,
+                                                                   phone_number,
+                                                                   email)).grid(column=0, row=1)
                     Label(creation_frame, text="Account Type: ").grid(column=0, row=2)
                     account_type_dropdown_menu.grid(column=1, row=2)
 
