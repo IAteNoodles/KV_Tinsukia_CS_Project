@@ -2,6 +2,7 @@ import sys
 import csv
 import datetime
 from connection_mysql import MySQL
+import pickle
 
 
 class BankConnection:

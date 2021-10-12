@@ -1,8 +1,5 @@
-import tkinter
-import tk
-from back_end_banking_system import Bank
 from tkinter import *
-import tkinter.messagebox
+from back_end_banking_system import Bank
 
 
 class TkInterInterface:
@@ -35,30 +32,38 @@ class TkInterInterface:
                 # Checks if there is an account with the unique id in the database
                 # Checks if the name entered matches with the name in the database
                 # If the above conditions are satisfied, then it proceeds to the next stage
-                creation_frame = Frame(self.__ROOT)
-                creation_frame.grid(column=0, row=0)
+                get_details_frame = Frame(self.__ROOT)
+                get_details_frame.grid(column=0, row=0)
                 # Imports Name, Address, Date of Birth, Phone, Email from the database
                 _name, address, dob, phone_number, email = "User", "Address", "1111/11/11", "1234567890", "@gmail.com"
                 signup_frame.destroy()
-                Label(creation_frame, text="Unique Id:" + unique_id).grid(column=0, row=0)
-                account_type_options = StringVar(self.__ROOT)
-                account_choices = {"Savings", "Current", "Corporate"}
-                account_type_options.set("Savings")
-                account_type_dropdown_menu = OptionMenu(creation_frame, account_type_options, *account_choices)
-                Label(creation_frame, text="Account Type: ").grid(column=0, row=1)
-                account_type_dropdown_menu.grid(column=2, row=1)
-
-                def change_dropdown(*args):
-                    return account_type_options.get()
-
-                account_type = account_type_options.trace("w", change_dropdown)
 
                 def create_account():
+                    get_details_frame.destroy()
+                    creation_frame = Frame(self.__ROOT)
+                    creation_frame.grid(column=0, row=0)
+                    Label(creation_frame, text="Unique Id:" + unique_id).grid(column=0, row=0)
+                    account_type_options = StringVar(self.__ROOT)
+                    account_choices = {"Savings", "Current", "Corporate"}
+                    account_type_options.set("Savings")
+                    account_type_dropdown_menu = OptionMenu(creation_frame, account_type_options, *account_choices)
+                    Label(creation_frame, text="Name: {0}\n"
+                                               "Address: {1}\n"
+                                               "Date of birth: {2}\n"
+                                               "Phone number: {3}\n"
+                                               "Email: {4}".format(_name, address, dob, phone_number, email)).grid(column=0, row=1)
+                    Label(creation_frame, text="Account Type: ").grid(column=0, row=2)
+                    account_type_dropdown_menu.grid(column=1, row=2)
+
+                    def change_dropdown(*args):
+                        return account_type_options.get()
+
+                    account_type = account_type_options.trace("w", change_dropdown)
                     bank = Bank.BankConnection(_name, address, dob, phone_number, email, account_type)
 
-                confirm_button = Button(creation_frame, text="Confirm Details", command=create_account)
+                confirm_button = Button(get_details_frame, text="Confirm Details", command=create_account)
                 confirm_button.grid(column=3, row=3)
-                creation_frame.mainloop()
+                get_details_frame.mainloop()
 
             next_button = Button(signup_frame, text="Next >>>", command=get_details)
             next_button.grid(column=3, row=3)
@@ -68,11 +73,11 @@ class TkInterInterface:
             login_frame = Frame(self.__ROOT)
             welcome_message = Label(login_frame, text=name + " Login Window")
             welcome_message.grid(column=1, row=0)
-            user_name_message = Label(login_frame, text="Enter your username: ")
+            user_name_message = Label(login_frame, text="Name: ")
             user_name_message.grid(column=0, row=1)
             user_name = Entry(login_frame)
             user_name.grid(column=1, row=1)
-            password_message = Label(login_frame, text="Enter your uniqueid: ")
+            password_message = Label(login_frame, text="Unique ID: ")
             password_message.grid(column=0, row=2)
             password = Entry(login_frame)
             password.grid(column=1, row=2)
