@@ -1,20 +1,17 @@
 import sys
 import csv
 import datetime
-import os
-import pickle
+from connection_mysql import MySQL
 
 
-
-class Bank:
+class BankConnection:
     def __init__(self, customer_name: str, customer_address: str, customer_dob: str, customer_phone_number: str,
                  customer_email: str, account_type: str, first_deposit=0):
         """
+        :param customer_name: Name of the user
+        :param account_type: The type of account the user has selected
+        :param first_deposit: The first deposit that is to be made on creating an account. Minimum deposit is set at Rs. 1000
         Inputs the data provided by the user which will then be used to create the account.
-        @param customer_name: Name of the user
-        @param account_type: The type of account the user has selected
-        @param first_deposit: The first deposit that is to be made on creating an account.
-        Minimum deposit is set at Rs. 1000
         """
 
         self.CUSTOMER_NAME = customer_name
@@ -78,9 +75,9 @@ class Bank:
 
     def deposit(self, balance: int) -> str:
         """
+        :param balance: Money to be deposited
+        :return: A confirmatory message
         Adds the amount to the current user balance
-        @param balance: Money to be deposited
-        @return: A confirmatory message
         """
         self.ACCOUNT_BALANCE += balance
         update = {"DATE ": datetime.date.today(),
@@ -96,8 +93,8 @@ class Bank:
 
 def accept_input() -> tuple:
     """
+    :return: A tuple containing the user input (name, address, date of birth, phone number, email address, account type)
     Prompts the user to enter the details in order to create an account
-    @return: A tuple containing the user input (name, address, date of birth, phone number, email address, account type)
     """
     customer_name = input("Enter your name: ")
     customer_address = input("Enter your address: ")
@@ -127,7 +124,7 @@ def prompt_user():
         if first_dep >= 1000:
             break
         print("Please deposit an amount >= 1000")
-    user = Bank(name, address, dob, phone_number, email, acc_type, first_dep)
+    user = BankConnection(name, address, dob, phone_number, email, acc_type, first_dep)
     user.create_account()
     user.link_passbook()
     return "Account created successfully!!!"
@@ -159,22 +156,6 @@ def display_data(user_details: tuple):
 
 
 if __name__ == '__main__':
-    print("\t\t\tWelcome")
-    files = list(files for files in os.listdir("./Accounts"))
-    account_list = list()
-    for file in files:
-        if file.__contains__("_info.dat"):
-            account_list.append(str(int(file[10:14]) + 1).__add__(")" + file))
-    account_list.reverse()
-    for account in account_list:
-        print(account.strip("_info.dat"))
-    choice = int(
-        input("Enter the Sl.No of the account that you want to log in.\n To create a new account, enter 0\nEnter your "
-              "choice: "))
-    if choice == 0:
-        print(prompt_user())
-    else:
-        if choice <= len(account_list):
-            index = account_list[choice - 1].find(")")
-            path = r"./Accounts/" + account_list[choice - 1][index + 1::]
-            display_data(retrieve_date(open(path, "rb")))
+    __CONNECTOR = MySQL.MySQLConnection("localhost","python","python","bank")
+    __CONNECTOR.test()
+
