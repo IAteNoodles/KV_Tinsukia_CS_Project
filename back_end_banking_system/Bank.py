@@ -29,12 +29,14 @@ class BankConnection:
             account_number = account_number.__add__("CUR")
         else:
             account_number = account_number.__add__("COR")
-        count = int(open("user_record.txt").read(4))
+        self.module_path = r"/home/groot/PycharmProjects/KV_Tinsukia_CS_Project/"
+        count = int(open(self.module_path+r"back_end_banking_system/user_record.txt").read(4))
         account_number = account_number.__add__("0" * (4 - len(str(count)))).__add__(str(count))
         self.ACCOUNT_NUMBER = account_number
         self.ACCOUNT_BALANCE = first_deposit
-        self.ACCOUNT_PASSBOOK_PATH = r"./Accounts/" + str(self.ACCOUNT_NUMBER) + "_info.dat"
-        self.__TRANSACTIONS__ = open(r"./Accounts/" + str(self.ACCOUNT_NUMBER) + "._passbook.csv", "w", encoding="UTF8",
+        self.ACCOUNT_PASSBOOK_PATH = self.module_path+r"/Accounts/" + str(self.ACCOUNT_NUMBER) + "_info.dat"
+        self.__TRANSACTIONS__ = open(self.module_path+r"/Accounts/" + str(self.ACCOUNT_NUMBER) + "._passbook.csv", "w",
+                                     encoding="UTF8",
                                      newline="")
         self.__TRANSACTIONS_ROWS__ = ["DATE ",
                                       "PARTICULARS ",
@@ -42,11 +44,12 @@ class BankConnection:
                                       "DEBIT ",
                                       "CREDIT ",
                                       "BALANCE "]
-        open("user_record.txt", "w").write(str(count + 1))
+        open(r"../back_end_banking_system/user_record.txt", "w").write(str(count + 1))
 
-    def create_account(self) -> None:
+    def create_account(self) -> bool:
         """
-        Creates a new bank account and saves the information in a .txt file
+        :returns: True if account created else False.
+        Looks for any errors in the credentials, and creates a new bank account.
         """
         with open(self.ACCOUNT_PASSBOOK_PATH, "wb") as input_details:
             input_data = [str("Account Number: " + self.ACCOUNT_NUMBER + "\n"),
@@ -59,6 +62,7 @@ class BankConnection:
                           str("Current Balance: " + str(self.ACCOUNT_BALANCE) + "\n")]
             for data in input_data:
                 pickle.dump(data, input_details)
+            return True
 
     def link_passbook(self) -> None:
         """
@@ -157,6 +161,5 @@ def display_data(user_details: tuple):
 
 
 if __name__ == '__main__':
-    __CONNECTOR = MySQL.MySQLConnection("localhost","python","python","bank")
+    __CONNECTOR = MySQL.MySQLConnection("localhost", "python", "python", "bank")
     __CONNECTOR.test()
-

@@ -1,3 +1,4 @@
+import tkinter.messagebox
 from tkinter import *
 from back_end_banking_system import Bank
 
@@ -60,10 +61,46 @@ class TkInterInterface:
                     account_type_dropdown_menu.grid(column=1, row=2)
 
                     def change_dropdown(*args):
-                        return account_type_options.get()
+                        text: str
+                        if account_type_options.get() == "Savings":
+                            text = "Savings"
+                        elif account_type_options.get() == "Current":
+                            text = "Current"
+                        else:
+                            text = "Corporate"
+                        account_type_details.configure(text=text)
+                    account_type_details = Label(creation_frame, text="Savings")
+                    Label(creation_frame, text="About: ").grid(column=0, row=3)
+                    account_type_details.grid(column=1, row=3)
+                    account_type_options.trace_add("write", change_dropdown)
 
-                    account_type = account_type_options.trace("w", change_dropdown)
-                    bank = Bank.BankConnection(_name, address, dob, phone_number, email, account_type)
+                    def push_account():
+                        bank_account = Bank.BankConnection(_name, address, dob, phone_number, email,
+                                                           account_type_options.get())
+                        creation_frame.destroy()
+                        end_window = Toplevel(self.__ROOT)
+                        end_window.title("Account Status")
+                        end_window.geometry("400x100")
+                        account_status = "Account created successfully!!!" if bank_account.create_account() else "Error occured while creating the account "
+                        Label(end_window, text=str(account_status)).grid(column=2, row=0)
+                        bank_account.link_passbook()
+
+                        def return_login_window():
+                            end_window.destroy()
+                            login()
+
+                        def quit_app():
+                            quit(0)
+
+                        return_login_button = Button(end_window, text="Login", fg="green",
+                                                     command=return_login_window)
+                        quit_button = Button(end_window, text="Quit", fg="red", command=quit_app)
+                        Label(end_window, text="What will you do?").grid(column=1, row=1)
+                        return_login_button.grid(column=1, row=2)
+                        quit_button.grid(column=3, row=2)
+
+                    final_button = Button(creation_frame, text="Next >>>", fg="blue", command=push_account)
+                    final_button.grid(column=3, row=2)
 
                 confirm_button = Button(get_details_frame, text="Confirm Details", command=create_account)
                 confirm_button.grid(column=3, row=3)
