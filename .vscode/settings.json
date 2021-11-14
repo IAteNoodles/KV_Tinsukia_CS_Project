@@ -1,0 +1,13 @@
+{
+    "python.analysis.extraPaths": [
+        "../back_end_banking_system",
+        "./back_end_banking_system"
+    ],
+    "vsintellicode.features.python.deepLearning": "enabled",
+    "git.autofetch": true,
+    "git.allowForcePush": true,
+    "git.alwaysShowStagedChangesResourceGroup": true,
+    "git.alwaysSignOff": true,
+    "git.allowNoVerifyCommit": true,
+    "git.autoStash": true
+}

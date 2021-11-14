@@ -1,11 +1,11 @@
 import sys
 import csv
 import datetime
-from connection_mysql import MySQL
+#from connection_mysql import MySQL
 import pickle
 
 
-class BankConnection:
+class User:
     def __init__(self, customer_name: str, customer_address: str, customer_dob: str, customer_phone_number: str,
                  customer_email: str, account_type: str, first_deposit=0):
         """
@@ -161,5 +161,6 @@ def display_data(user_details: tuple):
 
 
 if __name__ == '__main__':
-    __CONNECTOR = MySQL.MySQLConnection("localhost", "python", "python", "bank")
-    __CONNECTOR.test()
+    #__CONNECTOR = MySQL.MySQLConnection("localhost", "python", "python", "bank")
+    #__CONNECTOR.test()
+    pass

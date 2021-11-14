@@ -1,6 +1,6 @@
 import tkinter.messagebox
 from tkinter import *
-from back_end_banking_system import Bank
+
 
 
 class TkInterInterface:
